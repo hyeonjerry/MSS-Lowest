@@ -9,7 +9,7 @@ class Brands(models.Model):
     created_date = models.DateTimeField()
 
 
-class Products_History(models.Model):
+class History(models.Model):
     product = models.ForeignKey('Products', on_delete=models.CASCADE)
     price = models.IntegerField()
     created_date = models.DateTimeField()
@@ -20,9 +20,9 @@ class Products(models.Model):
     brand = models.ForeignKey(Brands, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     lowest = models.ForeignKey(
-        'Products_History', on_delete=models.CASCADE, related_name='lowest')
+        'History', on_delete=models.CASCADE, related_name='lowest')
     current = models.ForeignKey(
-        'Products_History', on_delete=models.CASCADE, related_name='current')
+        'History', on_delete=models.CASCADE, related_name='current')
     highest = models.ForeignKey(
-        'Products_History', on_delete=models.CASCADE, related_name='highest')
+        'History', on_delete=models.CASCADE, related_name='highest')
     img = models.CharField(max_length=255)
