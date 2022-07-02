@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<table class="table table-dark table-hover">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -12,16 +12,56 @@
     {% for brand in brands %}
     <tr>
       <td>
-        {{ forloop.counter }}
+        {{ brands.start_index|add:forloop.counter0 }}
       </td>
       <td>
         {{ brand.ko_name }}({{ brand.en_name }})
       </td>
       <td>
-        {{ brand.url }}
+        <a href="{{ brand.url }}">
+          {{ brand.url }}
+        </a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if brands.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ brands.previous_page_number }}" aria-label="Previous">
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Previous">
+    {% endif %}
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    {% for page_num in '01234'|make_list %}
+    {% if brands.number|add:-5|add:forloop.counter0 > 0 %}
+    <li class="page-item"><a class="page-link" href="?page={{ brands.number|add:-5|add:forloop.counter0 }}">{{ brands.number|add:-5|add:forloop.counter0 }}</a></li>
+    {% endif %}
+    {% endfor %}
+    <li class="page-item active"><a class="page-link" href="#">{{ brands.number }}</a></li>
+    {% for page_num in '01234'|make_list %}
+    {% if brands.number|add:forloop.counter <= brands.paginator.num_pages %}
+    <li class="page-item"><a class="page-link" href="?page={{ brands.number|add:forloop.counter }}">{{ brands.number|add:forloop.counter }}</a></li>
+    {% endif %}
+    {% endfor %}
+
+    {% if brands.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ brands.next_page_number }}" aria-label="Next">
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Next">
+    {% endif %}
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 {% endblock %}
