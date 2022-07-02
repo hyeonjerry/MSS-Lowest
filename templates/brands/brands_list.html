@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table table-dark table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">브랜드명</th>
+      <th scope="col">url</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for brand in brands %}
+    <tr>
+      <td>
+        {{ forloop.counter }}
+      </td>
+      <td>
+        {{ brand.ko_name }}({{ brand.en_name }})
+      </td>
+      <td>
+        {{ brand.url }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

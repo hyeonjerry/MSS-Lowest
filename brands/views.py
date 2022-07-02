@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+from brands.models import Brand
+
+
+def brandsList(request):
+    brands = Brand.objects.order_by('en_name')
+    return render(request, 'brands/brands_list.html', context)
