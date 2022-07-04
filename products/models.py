@@ -6,7 +6,8 @@ from brands.models import Brand
 class Category(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE,
                                null=True, blank=True, related_name='parent_category')
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, unique=True)
+    url = models.URLField(unique=True)
 
     def __str__(self):
         if self.parent:
@@ -28,7 +29,7 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='category_product')
     thumbnail = models.URLField()
-    url = models.URLField()
+    url = models.URLField(unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
