@@ -21,13 +21,13 @@ class Product(models.Model):
         Brand, on_delete=models.CASCADE, related_name='brand_product')
     requested_price = models.IntegerField()
     last_price = models.ForeignKey(
-        'ProductHistory', on_delete=models.CASCADE, related_name='last_product')
+        'ProductHistory', on_delete=models.CASCADE, related_name='last_product', null=True, blank=True)
     lowest_price = models.ForeignKey(
-        'ProductHistory', on_delete=models.CASCADE, related_name='lowest_product')
+        'ProductHistory', on_delete=models.CASCADE, related_name='lowest_product', null=True, blank=True)
     highest_price = models.ForeignKey(
-        'ProductHistory', on_delete=models.CASCADE, related_name='highest_product')
+        'ProductHistory', on_delete=models.CASCADE, related_name='highest_product', null=True, blank=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name='category_product')
+        Category, on_delete=models.CASCADE, related_name='category_product', null=True, blank=True)
     thumbnail = models.URLField()
     url = models.URLField(unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
