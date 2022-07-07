@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="list-group my-3">
+<div class="list-group mt-3">
   <a href="{{ brand.url }}" class="list-group-item list-group-item-action list-group-item-dark">{{ brand.ko_name }}({{ brand.en_name }})</a>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  {% for product in products %}
+<div class="row row-cols-1 row-cols-md-3 g-4 my-3">
+  {% for product in page_objs %}
   <div class="col">
     <div class="card h-100">
       <img src="{{ product.thumbnail }}" class="card-img-top" alt="thumbnail">
@@ -26,4 +26,7 @@
   </div>
   {% endfor %}
 </div>
+
+{% include "paginator.html" %}
+
 {% endblock %}

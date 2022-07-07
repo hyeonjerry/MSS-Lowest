@@ -9,10 +9,10 @@
     </tr>
   </thead>
   <tbody>
-    {% for brand in brands %}
+    {% for brand in page_objs %}
     <tr>
       <td>
-        {{ brands.start_index|add:forloop.counter0 }}
+        {{ page_objs.start_index|add:forloop.counter0 }}
       </td>
       <td>
         <a href="{{ brand.suffix }}" class="list-group-item list-group-item-action">{{ brand.ko_name }}({{ brand.en_name }})</a>
@@ -27,41 +27,6 @@
   </tbody>
 </table>
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    {% if brands.has_previous %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{ brands.previous_page_number }}" aria-label="Previous">
-    {% else %}
-    <li class="page-item disabled">
-      <a class="page-link" href="#" aria-label="Previous">
-    {% endif %}
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
+{% include "paginator.html" %}
 
-    {% for page_num in '01234'|make_list %}
-    {% if brands.number|add:-5|add:forloop.counter0 > 0 %}
-    <li class="page-item"><a class="page-link" href="?page={{ brands.number|add:-5|add:forloop.counter0 }}">{{ brands.number|add:-5|add:forloop.counter0 }}</a></li>
-    {% endif %}
-    {% endfor %}
-    <li class="page-item active"><a class="page-link" href="#">{{ brands.number }}</a></li>
-    {% for page_num in '01234'|make_list %}
-    {% if brands.number|add:forloop.counter <= brands.paginator.num_pages %}
-    <li class="page-item"><a class="page-link" href="?page={{ brands.number|add:forloop.counter }}">{{ brands.number|add:forloop.counter }}</a></li>
-    {% endif %}
-    {% endfor %}
-
-    {% if brands.has_next %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{ brands.next_page_number }}" aria-label="Next">
-    {% else %}
-    <li class="page-item disabled">
-      <a class="page-link" href="#" aria-label="Next">
-    {% endif %}
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
 {% endblock %}
