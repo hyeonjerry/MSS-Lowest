@@ -15,7 +15,7 @@
         {{ brands.start_index|add:forloop.counter0 }}
       </td>
       <td>
-        {{ brand.ko_name }}({{ brand.en_name }})
+        <a href="{{ brand.suffix }}" class="list-group-item list-group-item-action">{{ brand.ko_name }}({{ brand.en_name }})</a>
       </td>
       <td>
         <a href="{{ brand.url }}">
