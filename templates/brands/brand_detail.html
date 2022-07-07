@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="list-group my-3">
+  <a href="{{ brand.url }}" class="list-group-item list-group-item-action list-group-item-dark">{{ brand.ko_name }}({{ brand.en_name }})</a>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for product in products %}
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{ product.thumbnail }}" class="card-img-top" alt="thumbnail">
+      <div class="card-body">
+        <p class="card-title" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><strong>{{ product.name }}</strong></p>
+        <p class="card-text">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">원가: {{ product.requested_price }}</li>
+            <li class="list-group-item">현재가: {{ product.last_price.price }}</li>
+            <li class="list-group-item">최저가: {{ product.lowest_price.price }}</li>
+          </ul>
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">{{ product.updated_date|date:'Y-m-d H:i'}} 업데이트</small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
