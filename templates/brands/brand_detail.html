@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content %}
 <div class="list-group mt-3">
-  <a href="{{ brand.url }}" class="list-group-item list-group-item-action list-group-item-dark">{{ brand.ko_name }}({{ brand.en_name }})</a>
+  <a href="{{ brand.url }}" target="_blank" class="list-group-item list-group-item-action list-group-item-dark">{{ brand.ko_name }}({{ brand.en_name }})</a>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
@@ -13,9 +14,9 @@
         <p class="card-title" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><strong>{{ product.name }}</strong></p>
         <p class="card-text">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">원가: {{ product.requested_price }}</li>
-            <li class="list-group-item">현재가: {{ product.last_price.price }}</li>
-            <li class="list-group-item">최저가: {{ product.lowest_price.price }}</li>
+            <li class="list-group-item">원가: {{ product.requested_price|intcomma }}원</li>
+            <li class="list-group-item">현재가: {{ product.last_price.price|intcomma }}원</li>
+            <li class="list-group-item">최저가: {{ product.lowest_price.price|intcomma }}원</li>
           </ul>
         </p>
       </div>
