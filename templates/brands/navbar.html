@@ -1,18 +1,18 @@
 <nav class="navbar sticky-top bg-light">
-    <div class="container-fluid">
-      <a href="/products" class="navbar-brand">Musinsa Lowest</a>
-      <form class="d-flex" onsubmit="return false">
-        <input class="form-control me-2" type="text" id="search_kw" placeholder="Search" aria-label="Search" value="{{ kw|default_if_none:'' }}">
-        <button class="btn btn-outline-success" type="button" id="btn_search">Search</button>
-      </form>
-      <form class="d-flex">
-        <a class="btn btn-outline-secondary me-2" href="\products" role="button">products</a>
-        <a class="btn btn-outline-secondary me-2" href="\brands" role="button">brands</a>
-      </form>
-    </div>
-  </nav>
+  <div class="container-fluid">
+    <a href="/products" class="navbar-brand">Musinsa Lowest</a>
+    <form class="d-flex" onsubmit="return false">
+      <input class="form-control me-2" type="text" id="search_kw" placeholder="브랜드 검색" aria-label="Search" value="{{ kw|default_if_none:'' }}">
+      <button class="btn btn-outline-success" type="button" id="btn_search">Search</button>
+    </form>
+    <form class="d-flex">
+      <a class="btn btn-outline-secondary me-2" href="\products" role="button">products</a>
+      <a class="btn btn-outline-secondary me-2" href="\brands" role="button">brands</a>
+    </form>
+  </div>
+</nav>
 
-  <form id="searchForm" method="get" action="{% url 'brands:brandsList' %}">
-    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-    <input type="hidden" id="page" name="page" value="{{ page }}">
-  </form>
+<form id="searchForm" method="get" action="{% url 'brands:brandsList' %}">
+  <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+  <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
