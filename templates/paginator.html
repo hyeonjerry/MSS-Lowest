@@ -1,37 +1,37 @@
 <nav aria-label="Page navigation example my-3">
-    <ul class="pagination justify-content-center">
-      {% if page_objs.has_previous %}
-      <li class="page-item">
-        <a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.previous_page_number }}" aria-label="Previous">
-      {% else %}
-      <li class="page-item disabled">
-        <a class="page-link" href="#" aria-label="Previous">
-      {% endif %}
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-  
-      {% for page_num in '01234'|make_list %}
-      {% if page_objs.number|add:-5|add:forloop.counter0 > 0 %}
-      <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.number|add:-5|add:forloop.counter0 }}">{{ page_objs.number|add:-5|add:forloop.counter0 }}</a></li>
-      {% endif %}
-      {% endfor %}
-      <li class="page-item active"><a class="page-link" href="#">{{ page_objs.number }}</a></li>
-      {% for page_num in '01234'|make_list %}
-      {% if page_objs.number|add:forloop.counter <= page_objs.paginator.num_pages %}
-      <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.number|add:forloop.counter }}">{{ page_objs.number|add:forloop.counter }}</a></li>
-      {% endif %}
-      {% endfor %}
-  
-      {% if page_objs.has_next %}
-      <li class="page-item">
-        <a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.next_page_number }}" aria-label="Next">
-      {% else %}
-      <li class="page-item disabled">
-        <a class="page-link" href="#" aria-label="Next">
-      {% endif %}
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <ul class="pagination justify-content-center">
+    {% if page_objs.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.previous_page_number }}" aria-label="Previous">
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Previous">
+    {% endif %}
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    {% for page_num in '01234'|make_list %}
+    {% if page_objs.number|add:-5|add:forloop.counter0 > 0 %}
+    <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.number|add:-5|add:forloop.counter0 }}">{{ page_objs.number|add:-5|add:forloop.counter0 }}</a></li>
+    {% endif %}
+    {% endfor %}
+    <li class="page-item active"><a class="page-link" href="#">{{ page_objs.number }}</a></li>
+    {% for page_num in '01234'|make_list %}
+    {% if page_objs.number|add:forloop.counter <= page_objs.paginator.num_pages %}
+    <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.number|add:forloop.counter }}">{{ page_objs.number|add:forloop.counter }}</a></li>
+    {% endif %}
+    {% endfor %}
+
+    {% if page_objs.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0)" data-page="{{ page_objs.next_page_number }}" aria-label="Next">
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Next">
+    {% endif %}
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

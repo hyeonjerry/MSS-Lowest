@@ -1,29 +1,29 @@
 {% load humanize %}
 
 <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
-    {% for product in page_objs %}
-    <div class="col">
-      <div class="card h-100">
+  {% for product in page_objs %}
+  <div class="col">
+    <div class="card h-100">
+      <a href="/products/{{ product.id }}" style="text-decoration: none; color: black;">
+        <img src="{{ product.thumbnail }}" class="card-img-top" alt="thumbnail">
+      </a>
+      <div class="card-body">
         <a href="/products/{{ product.id }}" style="text-decoration: none; color: black;">
-          <img src="{{ product.thumbnail }}" class="card-img-top" alt="thumbnail">
+          <p class="card-title" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><strong>{{ product.name }}</strong></p>
         </a>
-        <div class="card-body">
-          <a href="/products/{{ product.id }}" style="text-decoration: none; color: black;">
-            <p class="card-title" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><strong>{{ product.name }}</strong></p>
-          </a>
-          <p class="card-text">
-            <a href="/brands/{{ product.brand.suffix }}">{{ product.brand.ko_name }}({{ product.brand.en_name }})</a>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">원가: {{ product.requested_price|intcomma }}원</li>
-              <li class="list-group-item">현재가: {{ product.last_price.price|intcomma }}원</li>
-              <li class="list-group-item">최저가: {{ product.lowest_price.price|intcomma }}원</li>
-            </ul>
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">{{ product.updated_date|date:'Y-m-d H:i'}} 업데이트</small>
-        </div>
+        <p class="card-text">
+          <a href="/brands/{{ product.brand.suffix }}">{{ product.brand.ko_name }}({{ product.brand.en_name }})</a>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">원가: {{ product.requested_price|intcomma }}원</li>
+            <li class="list-group-item">현재가: {{ product.last_price.price|intcomma }}원</li>
+            <li class="list-group-item">최저가: {{ product.lowest_price.price|intcomma }}원</li>
+          </ul>
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">{{ product.updated_date|date:'Y-m-d H:i'}} 업데이트</small>
       </div>
     </div>
-    {% endfor %}
   </div>
+  {% endfor %}
+</div>
