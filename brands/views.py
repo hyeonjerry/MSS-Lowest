@@ -19,9 +19,9 @@ def brandsList(request):
     return render(request, 'brands/list.html', context)
 
 
-def brandDetail(request, brand_name):
+def brandDetail(request, brand_id):
     page = request.GET.get('page', '1')
-    brand = Brand.objects.get(suffix=brand_name)
+    brand = Brand.objects.get(id=brand_id)
     products = brand.brand_product.all()
     products = Paginator(products, 15).get_page(page)
     context = {'brand': brand, 'page_objs': products, 'page': page}
