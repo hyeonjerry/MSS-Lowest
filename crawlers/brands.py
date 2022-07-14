@@ -1,21 +1,39 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from brands.models import Brand
 from bs4 import BeautifulSoup
 import requests
-import django
-django.setup()
-
+import re
 
 URL = 'https://www.musinsa.com/app/contents/brandshop'
 headers = {'user-agent': 'Mozilla/5.0'}
+re_num = re.compile('\d+')
 
 
 def createBrands():
-    req = requests.get(URL, headers=headers)
-    brands = BeautifulSoup(req.text, 'html.parser').select(
-        '#text_list > ul > li > dl')
-    data_gen = ((brand.dt.a.text, (lambda x: x[:x.rfind(' ')])(
-        brand.dd.a.text), brand.dt.a.get('href')) for brand in brands)
-    new_brands = [Brand(en_name=en, ko_name=ko, url=url, suffix=url.split('/')[-1])
-                  for en, ko, url in data_gen if not Brand.objects.filter(url=url)]
+    with requests.get(URL, headers=headers) as req:
+        brands = BeautifulSoup(req.text, 'html.parser').select(
+            '#text_list > ul > li > dl')
+
+    data_gen = ((brand.dt.a.text, *splitKoCnt(brand.dd.a.text),
+                brand.dt.a.get('href')) for brand in brands)
+    with ThreadPoolExecutor() as executor:
+        futures = [executor.submit(checkVerification, en, ko, url)
+                   for en, ko, cnt, url in data_gen if cnt > 0]
+    new_brands = [Brand(en_name=result[0], ko_name=result[1], url=result[2]) for future in as_completed(
+        futures) if (result := future.result()) and not Brand.objects.filter(url=result[2])]
+
     if new_brands:
         Brand.objects.bulk_create(new_brands)
+
+
+def splitKoCnt(x):
+    return x[:x.rfind(' ')], int(''.join(re_num.findall(x[x.rfind('(')+1:-1])))
+
+
+def checkVerification(en, ko, url):
+    with requests.get(url, headers=headers) as req:
+        soup = BeautifulSoup(req.text, 'html.parser')
+    if soup.select('#searchList'):
+        return en, ko, url
+    else:
+        return False
