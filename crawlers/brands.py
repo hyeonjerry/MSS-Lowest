@@ -17,10 +17,10 @@ def createBrands():
     data_gen = ((brand.dt.a.text, *splitKoCnt(brand.dd.a.text),
                 brand.dt.a.get('href')) for brand in brands)
     with ThreadPoolExecutor() as executor:
-        futures = [executor.submit(checkVerification, en, ko, url)
-                   for en, ko, cnt, url in data_gen if cnt > 0]
-    new_brands = [Brand(en_name=result[0], ko_name=result[1], url=result[2]) for future in as_completed(
-        futures) if (result := future.result()) and not Brand.objects.filter(url=result[2])]
+        futures = [executor.submit(checkVerification, en, ko, url) for en, ko,
+                   cnt, url in data_gen if cnt > 0 and not Brand.objects.filter(url=url)]
+    new_brands = [Brand(en_name=result[0], ko_name=result[1], url=result[2])
+                  for future in as_completed(futures) if (result := future.result())]
 
     if new_brands:
         Brand.objects.bulk_create(new_brands)
