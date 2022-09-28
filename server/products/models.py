@@ -10,10 +10,12 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     price = models.IntegerField()
     lowest_price = models.OneToOneField('ProductHistory',
-                                        on_delete=models.SET_NULL, null=True,
+                                        on_delete=models.SET_NULL,
+                                        null=True, blank=True,
                                         related_name='lowest')
     highest_price = models.OneToOneField('ProductHistory',
-                                         on_delete=models.SET_NULL, null=True,
+                                         on_delete=models.SET_NULL,
+                                         null=True, blank=True,
                                          related_name='highest')
     updated_date = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
