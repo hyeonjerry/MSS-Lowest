@@ -6,9 +6,13 @@ from brands.models import Brand
 class Product(models.Model):
     name = models.CharField(max_length=100)
     image = models.URLField(max_length=250)
-    url = models.URLField(max_length=250)
+    url = models.URLField(max_length=250, unique=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     price = models.IntegerField()
+    latest_price = models.OneToOneField('ProductHistory',
+                                        on_delete=models.SET_NULL,
+                                        null=True, blank=True,
+                                        related_name='latest')
     lowest_price = models.OneToOneField('ProductHistory',
                                         on_delete=models.SET_NULL,
                                         null=True, blank=True,
